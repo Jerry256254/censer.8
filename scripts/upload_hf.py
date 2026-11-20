@@ -121,7 +121,6 @@ def llama_config(state: dict, tok_meta: dict, tok_ids: dict) -> dict:
             "rope_type": "linear",
             "factor": float(rope_scaling["factor"]),
             "rope_theta": 10000.0,
-            "original_max_position_embeddings": mc["max_seq_len"] // int(float(rope_scaling["factor"])),
         }
     id2label = {str(k): v for k, v in ID2LABEL.items()} if n_answers > 2 else {"0": "safe", "1": "unsafe"}
     return {
