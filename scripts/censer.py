@@ -428,10 +428,12 @@ def main(argv: list[str] | None = None) -> None:
     parser.add_argument("--model-dir", default=".")
     parser.add_argument("--threshold", type=float, default=0.5)
     parser.add_argument("--json", action="store_true")
+    parser.add_argument("--prefer-quant", action="store_true",
+                        help="load model_int8.safetensors (0.9 MB) instead of fp32 if present")
     parser.add_argument("--repl", action="store_true", help="interactive UI (default when no text is given)")
     args = parser.parse_args(argv)
 
-    pipe = CenserPipeline(args.model_dir, args.threshold)
+    pipe = CenserPipeline(args.model_dir, args.threshold, prefer_quant=args.prefer_quant)
     text = " ".join(args.text).strip()
     if args.repl or not text:
         raise SystemExit(repl(pipe))
